@@ -1,0 +1,6 @@
+{
+  "name": "Arogya Mitra",
+  "description": "A comprehensive healthcare platform for booking appointments, scanning medicines, checking symptoms, and managing health records.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["AI Symptom Checker", "Medicine Scanner", "Appointment Management"]
+}

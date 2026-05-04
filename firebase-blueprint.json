@@ -1,0 +1,117 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User's personal and health information.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "age": { "type": "number" },
+        "weight": { "type": "number" },
+        "conditions": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name", "email"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Healthcare appointments booked by users.",
+      "type": "object",
+      "properties": {
+        "appointmentId": { "type": "string" },
+        "userId": { "type": "string" },
+        "doctorName": { "type": "string" },
+        "specialty": { "type": "string" },
+        "dateTime": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["upcoming", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "doctorName", "dateTime", "status"]
+    },
+    "Medicine": {
+      "title": "Medicine",
+      "description": "Details of scanned medicines.",
+      "type": "object",
+      "properties": {
+        "medicineId": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "usage": { "type": "string" },
+        "dosage": { "type": "string" },
+        "sideEffects": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "scannedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "name"]
+    },
+    "Prescription": {
+      "title": "Prescription",
+      "description": "Uploaded electronic prescriptions.",
+      "type": "object",
+      "properties": {
+        "prescriptionId": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "notes": { "type": "string" },
+        "uploadedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "imageUrl"]
+    },
+    "HealthRecord": {
+      "title": "Health Record",
+      "description": "Medical reports and records.",
+      "type": "object",
+      "properties": {
+        "recordId": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "fileUrl": { "type": "string" },
+        "type": { "type": "string", "enum": ["report", "scan", "lab_result"] },
+        "uploadedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title", "fileUrl"]
+    },
+    "AmbulanceRequest": {
+      "title": "Ambulance Request",
+      "description": "Emergency ambulance bookings.",
+      "type": "object",
+      "properties": {
+        "requestId": { "type": "string" },
+        "userId": { "type": "string" },
+        "location": { "type": "object", "properties": { "lat": { "type": "number" }, "lng": { "type": "number" }, "address": { "type": "string" } } },
+        "status": { "type": "string", "enum": ["pending", "dispatched", "completed"] },
+        "requestedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "location", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents."
+    },
+    "/appointments/{appointmentId}": {
+      "schema": "Appointment",
+      "description": "Collection of all appointments."
+    },
+    "/medicines/{medicineId}": {
+      "schema": "Medicine",
+      "description": "Collection of scanned medicines."
+    },
+    "/prescriptions/{prescriptionId}": {
+      "schema": "Prescription",
+      "description": "Collection of prescriptions."
+    },
+    "/records/{recordId}": {
+      "schema": "HealthRecord",
+      "description": "Collection of health records."
+    },
+    "/ambulance_requests/{requestId}": {
+      "schema": "AmbulanceRequest",
+      "description": "Collection of ambulance requests."
+    }
+  }
+}
